@@ -20,7 +20,15 @@ function startShopping() {
   var query = "SELECT item_id, product_name, price FROM products";
   connection.query(query, function(err, res) {
     res.forEach(function(product) {
-      console.log(product.product_name)
+      console.log(
+        'ID: ' + 
+        product.item_id + ' -- ' +
+        product.product_name + ' || ' +
+        product.price )
     })
+
+    // inquirer.prompt({
+
+    // })
   })
 }
