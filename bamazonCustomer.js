@@ -13,6 +13,14 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log('connected')
-  connection.end();
+  startShopping();
 })
+
+function startShopping() {
+  var query = "SELECT item_id, product_name, price FROM products";
+  connection.query(query, function(err, res) {
+    res.forEach(function(product) {
+      console.log(product.product_name)
+    })
+  })
+}
