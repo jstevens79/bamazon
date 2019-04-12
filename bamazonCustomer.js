@@ -19,6 +19,7 @@ connection.connect(function(err) {
 function startShopping() {
   var query = "SELECT item_id, product_name, price FROM products";
   connection.query(query, function(err, res) {
+    console.log('--- Available Items ---')
     res.forEach(function(product) {
       console.log(
         'ID: ' + 
@@ -27,8 +28,20 @@ function startShopping() {
         product.price )
     })
 
-    // inquirer.prompt({
-
-    // })
+    
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'productID',
+        message: 'Which product would you like to buy? (Enter Product ID)'
+      },
+      {
+        type: 'input',
+        name: 'quantity',
+        message: 'How many would you like to purchase?'
+      }
+    ]).then(function(resp) {
+        console.log(resp)
+    })
   })
 }
