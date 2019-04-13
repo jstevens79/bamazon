@@ -28,7 +28,7 @@ function startShopping() {
         product.price )
     })
 
-    
+
     inquirer.prompt([
       {
         type: 'input',
@@ -41,7 +41,44 @@ function startShopping() {
         message: 'How many would you like to purchase?'
       }
     ]).then(function(resp) {
-        console.log(resp)
+        // get item by id
+        var productID = resp.productID;
+        var quantity = parseInt(resp.quantity, 10);
+
+        var query = "SELECT * FROM products WHERE item_id=?"
+        connection.query(query, resp.productID, function(err, res) {
+          var item = res[0];
+         if (item.stock_quantity >= quantity) {
+           var newQuantity = item.stock_quantity - quantity;
+           var queryUpdate = "UPDATE products SET stock_quantity=? WHERE item_id=?";
+           var total = quantity * item.price;
+           totalPrice = total.toFixed(2);
+
+           connection.query(queryUpdate, [newQuantity, productID], function(err, res) {
+             console.log('You spent $' + totalPrice + "\n");
+             inquirer.prompt([
+               {
+                 type: 'confirm',
+                 name: 'continue',
+                 message: 'Continue shopping?'
+               }
+             ]).then(function(conf) {
+               if (conf.continue) {
+                 startShopping();
+               } else {
+                 console.log('goodbye')
+                 connection.end();
+               }
+             })
+           })
+
+         } else {
+           console.log("Sorry, this item doesn't have enough in stock to fulfill your order.");
+           startShopping();
+         }
+         
+        })
+
     })
   })
 }
