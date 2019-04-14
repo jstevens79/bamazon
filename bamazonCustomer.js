@@ -19,13 +19,13 @@ connection.connect(function(err) {
 function startShopping() {
   var query = "SELECT item_id, product_name, price FROM products";
   connection.query(query, function(err, res) {
-    console.log('\n--- Available Items ---\n')
+    console.log('\n--- Available Items ---\n');
     res.forEach(function(product) {
       console.log(
         'ID: ' + 
         product.item_id + ' -- ' +
         product.product_name + ' || ' +
-        '$' + product.price.toFixed(2) )
+        '$' + product.price.toFixed(2) );
     })
     console.log("\n----------------------\n");
 
