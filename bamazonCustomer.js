@@ -86,6 +86,7 @@ function continueOrQuit() {
     if (conf.continue) {
       startShopping();
     } else {
+      console.log("\n----------------------\n");
       console.log("Thanks for shopping. Goodbye!");
       connection.end();
     }
