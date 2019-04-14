@@ -56,29 +56,35 @@ function startShopping() {
 
            connection.query(queryUpdate, [newQuantity, productID], function(err, res) {
              console.log("\nPURCHASE SUCCESS: You spent $" + totalPrice + "\n");
-             inquirer.prompt([
-               {
-                 type: 'confirm',
-                 name: 'continue',
-                 message: 'Continue shopping?'
-               }
-             ]).then(function(conf) {
-               if (conf.continue) {
-                 startShopping();
-               } else {
-                 console.log("Thanks for shopping. Goodbye!");
-                 connection.end();
-               }
-             })
+             continueOrQuit();
            })
 
          } else {
-           console.log("Sorry, this item doesn't have enough in stock to fulfill your order.");
-           startShopping();
+           console.log("\n----------------------\n");
+           console.log("Sorry, this item doesn't have enough in stock to fulfill your order.\n");
+           continueOrQuit();
          }
          
         })
 
     })
+  })
+}
+
+
+function continueOrQuit() {
+  inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'continue',
+      message: 'Continue shopping?'
+    }
+  ]).then(function(conf) {
+    if (conf.continue) {
+      startShopping();
+    } else {
+      console.log("Thanks for shopping. Goodbye!");
+      connection.end();
+    }
   })
 }
