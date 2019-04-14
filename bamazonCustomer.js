@@ -19,15 +19,15 @@ connection.connect(function(err) {
 function startShopping() {
   var query = "SELECT item_id, product_name, price FROM products";
   connection.query(query, function(err, res) {
-    console.log('--- Available Items ---')
+    console.log('\n--- Available Items ---\n')
     res.forEach(function(product) {
       console.log(
         'ID: ' + 
         product.item_id + ' -- ' +
         product.product_name + ' || ' +
-        product.price )
+        '$' + product.price.toFixed(2) )
     })
-
+    console.log("\n----------------------\n");
 
     inquirer.prompt([
       {
@@ -55,13 +55,16 @@ function startShopping() {
            totalPrice = total.toFixed(2);
 
            connection.query(queryUpdate, [newQuantity, productID], function(err, res) {
-             console.log("\nPURCHASE SUCCESS: You spent $" + totalPrice + "\n");
+             console.log("\n----------------------\n");
+             console.log("PURCHASE SUCCESS: You spent $" + totalPrice + "\n");
+             console.log("----------------------\n");
              continueOrQuit();
            })
 
          } else {
            console.log("\n----------------------\n");
            console.log("Sorry, this item doesn't have enough in stock to fulfill your order.\n");
+           console.log("----------------------\n");
            continueOrQuit();
          }
          
