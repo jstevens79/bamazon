@@ -55,7 +55,7 @@ function startShopping() {
            totalPrice = total.toFixed(2);
 
            connection.query(queryUpdate, [newQuantity, productID], function(err, res) {
-             console.log('You spent $' + totalPrice + "\n");
+             console.log("\nPURCHASE SUCCESS: You spent $" + totalPrice + "\n");
              inquirer.prompt([
                {
                  type: 'confirm',
@@ -66,7 +66,7 @@ function startShopping() {
                if (conf.continue) {
                  startShopping();
                } else {
-                 console.log('goodbye')
+                 console.log("Thanks for shopping. Goodbye!");
                  connection.end();
                }
              })
