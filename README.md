@@ -1,4 +1,4 @@
-# bamazon
+# Bamazon
 An Amazon-like CLI project for class. View and "purchase" products as a customer, or view update inventory as a manger.
 
 ## Technologies
@@ -15,3 +15,5 @@ An Amazon-like CLI project for class. View and "purchase" products as a customer
 4. In your CLI, run `node bamazonCustomer` to view the customer interface.
 5. Or, run `node bamazonManager` to view the manager interface.
 
+## Screenshots
+![alt text](./images/customer/bamazon-customer-01-start.png)
